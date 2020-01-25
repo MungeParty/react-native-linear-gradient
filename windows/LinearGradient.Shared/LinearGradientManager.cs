@@ -40,8 +40,9 @@ namespace LinearGradient
             _canvas = new Canvas();
             _linearGradient = new LinearGradientBrush
             {
-                SpreadMethod = GradientSpreadMethod.Pad
+                SpreadMethod = GradientSpreadMethod.Pad,
             };
+            _canvas.IsHitTestVisible = false;
             _canvas.Background = _linearGradient;
             return _canvas;
         }
