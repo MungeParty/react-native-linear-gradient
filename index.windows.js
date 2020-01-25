@@ -5,19 +5,31 @@
 import React, { Component } from 'react';
 import { processColor, View } from 'react-native';
 
-import NativeLinearGradient from './common';
+import NativeLinearGradient, { type Props } from './common';
 
-// TODO: Update Windows native code + update Props to share the same API with iOS/android
-type Props = {
-  start?: number[];
-  end?: number[];
-  colors: string[];
-  locations?: number[];
-} & typeof(View);
+const convertPoint = (name, point) => {
+  if (Array.isArray(point)) {
+    console.warn(
+      `LinearGradient '${name}' property should be an object with fields 'x' and 'y', ` +
+      'Array type is deprecated.'
+    );
+
+    return {
+      x: point[0],
+      y: point[1]
+    };
+  }
+  return point;
+};
 
 export default class LinearGradient extends Component<Props> {
   props: Props;
   gradientRef: any;
+
+  static defaultProps = {
+    start: { x: 0, y: 0 },
+    end: { x: 1, y: 0 },
+  };
 
   setNativeProps(props: Props) {
     this.gradientRef.setNativeProps(props);
@@ -25,6 +37,8 @@ export default class LinearGradient extends Component<Props> {
 
   render() {
     const {
+      start,
+      end,
       colors,
       locations,
       ...otherProps
@@ -32,11 +46,13 @@ export default class LinearGradient extends Component<Props> {
     if ((colors && locations) && (colors.length !== locations.length)) {
       console.warn('LinearGradient colors and locations props should be arrays of the same length');
     }
-
+    console.log('linear otherp', otherProps);
     return (
       <NativeLinearGradient
         ref={(component) => { this.gradientRef = component; }}
         {...otherProps}
+        startPoint={convertPoint('start', start)}
+        endPoint={convertPoint('end', end)}
         colors={colors.map(processColor)}
         locations={locations ? locations.slice(0, colors.length) : null}
       />

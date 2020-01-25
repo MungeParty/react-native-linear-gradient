@@ -21,8 +21,8 @@ namespace LinearGradient
         public const String REACT_CLASS = "BVLinearGradient";
         public const String PROP_COLORS = "colors";
         public const String PROP_LOCATIONS = "locations";
-        public const String PROP_START_POS = "start";
-        public const String PROP_END_POS = "end";
+        public const String PROP_START_POS = "startPoint";
+        public const String PROP_END_POS = "endPoint";
 
         private LinearGradientBrush _linearGradient;
         private Canvas _canvas;
