@@ -46,7 +46,6 @@ export default class LinearGradient extends Component<Props> {
     if ((colors && locations) && (colors.length !== locations.length)) {
       console.warn('LinearGradient colors and locations props should be arrays of the same length');
     }
-    console.log('linear otherp', otherProps);
     return (
       <NativeLinearGradient
         ref={(component) => { this.gradientRef = component; }}
